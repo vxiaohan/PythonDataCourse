@@ -63,9 +63,19 @@ for word in speech:
 stop_words = stopwords.words('english')
 
 sorted_words = sorted(word_count.items(), key=lambda d:d[1], reverse=True)
-print(type(sorted_words))
-for k,v in sorted_words:
-    if k in stop_words:
-        sorted_words.pop(v)
 
-print(sorted_words)
+words_result =  []
+for k,v in sorted_words:
+    if k not in stop_words:
+        words_result.append((k,v))
+
+print(words_result)
+
+# Version 2
+
+from collections import Counter
+c = Counter(speech)
+for sw in stop_words:
+    del c[sw]
+
+print(c.most_common(10))
